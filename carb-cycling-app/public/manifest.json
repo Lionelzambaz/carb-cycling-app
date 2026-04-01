@@ -1,0 +1,17 @@
+{
+  "name": "CarbCycle",
+  "short_name": "CarbCycle",
+  "description": "Suis ton programme de carb cycling",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f11",
+  "theme_color": "#0f0f11",
+  "icons": [
+    {
+      "src": "/carbcycle-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

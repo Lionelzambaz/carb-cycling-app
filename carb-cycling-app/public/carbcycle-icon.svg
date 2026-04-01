@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <defs>
+    <linearGradient id="carrot" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff8c42"/>
+      <stop offset="100%" style="stop-color:#e85d04"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#52b788"/>
+      <stop offset="100%" style="stop-color:#2d6a4f"/>
+    </linearGradient>
+  </defs>
+  <!-- fond -->
+  <rect width="100" height="100" rx="22" fill="#1a1a2e"/>
+  <!-- fanes -->
+  <path d="M50,28 Q44,18 37,16" fill="none" stroke="url(#leaf)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50,28 Q50,16 50,12" fill="none" stroke="url(#leaf)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50,28 Q56,18 63,16" fill="none" stroke="url(#leaf)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50,28 Q43,23 37,25" fill="none" stroke="url(#leaf)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <path d="M50,28 Q57,23 63,25" fill="none" stroke="url(#leaf)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <!-- corps carotte -->
+  <path d="M38,30 Q26,52 46,88 Q50,93 54,88 Q74,52 62,30 Z" fill="url(#carrot)"/>
+  <!-- reflet -->
+  <path d="M42,35 Q36,54 40,72" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.25"/>
+</svg>
