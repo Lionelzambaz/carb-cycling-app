@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import { useAuth } from '../hooks/useAuth'
 import { useEntries } from '../hooks/useEntries'
 import Progression from './Progression'
@@ -82,7 +83,15 @@ export default function Dashboard() {
   const totalCal = weekEntries.reduce((s, e) => s + (e.cal || 0), 0)
   const totalCarbs = weekEntries.reduce((s, e) => s + (e.carbs || 0), 0)
   const totalProt = weekEntries.reduce((s, e) => s + (e.prot || 0), 0)
+  const totalFat = weekEntries.reduce((s, e) => s + (e.fat || 0), 0)
   const sportDays = weekEntries.filter(e => e.sport && e.sport !== 'Repos').length
+
+  const macroTotal = totalCarbs + totalProt + totalFat
+  const pieData = macroTotal > 0 ? [
+    { name: 'Glucides', value: Math.round((totalCarbs / macroTotal) * 100), color: '#7c6af7' },
+    { name: 'Protéines', value: Math.round((totalProt / macroTotal) * 100), color: '#4ade80' },
+    { name: 'Lipides', value: Math.round((totalFat / macroTotal) * 100), color: '#fb923c' },
+  ] : []
 
   const hasEntry = selectedDate && weekData[selectedDate]
 
@@ -295,11 +304,15 @@ export default function Dashboard() {
               onNext={() => setWeekOffset(w => w + 1)}
             />
             {loading && <div className="loading-bar" />}
+            <div className="summary-card-full">
+              <div className="sc-val">{totalCal.toLocaleString()}</div>
+              <div className="sc-label">kcal totales</div>
+            </div>
             <div className="summary-grid">
               {[
-                { val: totalCal.toLocaleString(), label: 'kcal totales' },
                 { val: `${totalCarbs}g`, label: 'glucides' },
                 { val: `${totalProt}g`, label: 'protéines' },
+                { val: `${totalFat}g`, label: 'lipides' },
                 { val: sportDays, label: 'séances sport' },
               ].map((m, i) => (
                 <div key={i} className="summary-card">
@@ -308,6 +321,19 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
+            {pieData.length > 0 && (
+              <div className="macro-chart">
+                <div className="dp-section-label" style={{ marginBottom: '12px' }}>Répartition des macros</div>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={65} outerRadius={90} label={({ name, value }) => `${name} ${value}%`} labelLine={true}>
+                      {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
+                    </Pie>
+                    <Tooltip formatter={(value) => `${value}%`} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            )}
             <div className="type-breakdown">
               <div className="dp-section-label" style={{ marginBottom: '12px' }}>Répartition des jours</div>
               {TYPES.map(t => {
